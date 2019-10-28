@@ -1,0 +1,17 @@
+{
+    "MovementSensor": 
+    {
+        "PIN_SENSOR": "11"
+    },
+    "RGBInterface":
+    {
+        "0":
+        {
+            "r": "255",
+            "g": "44",
+            "b": "21",
+            "lightness": "255",
+            "state": "1"
+        }
+    }
+}

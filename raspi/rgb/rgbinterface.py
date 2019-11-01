@@ -55,6 +55,12 @@ class RGBInterface(object):
     def _convert_value_to_string(self, color, brightness):
         """ converts the given color and brightness to its real value and returns it as a string """
 
+        if color == None:
+            color = 0
+
+        if brightness == None:
+            brightness = 0
+
         real_color = int(int(color) * (float(brightness) / 255.0))
         string_color = str(real_color).zfill(3)
 

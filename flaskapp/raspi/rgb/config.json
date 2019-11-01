@@ -1,0 +1,7 @@
+{
+    "0":
+    {
+        "addr": "/dev/ttyUSB0",
+        "baudrate": "9600"
+    }
+}

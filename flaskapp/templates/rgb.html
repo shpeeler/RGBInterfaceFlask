@@ -1,15 +1,41 @@
 <html>
     <head>
-        <title>RGB Inputs</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/rgb.css') }}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <form action="http://pi/rgb" method="POST">
-            <p>R: <input type="number" name="r" min="0" max="255"></p>
-            <p>G: <input type="number" name="g" min="0" max="255"></p>
-            <p>B: <input type="number" name="b" min="0" max="255"></p>
-            <p>L: <input type="number" name="l" min="0" max="255"></p>
-            <p>P: <input type="number" name="p" min="0" max="255"></p>
-            <p>Submit<input type="submit" value="submit"></p>
+        <form action="http://192.168.0.171/rgb" method="POST">
+            <fieldset>
+                    <label for="r">R</label>
+                    <input type="range" min="0" max="255" id="r" step="1" value="0" name="r">
+                    <output for="r" id="r_out">0</output>
+                </fieldset>  
+                    
+                <fieldset>
+                    <label for="g">G</label>
+                    <input type="range" min="0" max="255" id="g" step="1" value="0" name="g">
+                    <output for="g" id="g_out">0</output>
+                </fieldset>
+                    
+                <fieldset>
+                    <label for="b">B</label>
+                    <input type="range" min="0" max="255" id="b" step="1" value="0" name="b">
+                    <output for="b" id="b_out">0</output>
+                </fieldset>  
+        
+                <fieldset>
+                        <label for="l">L</label>
+                        <input type="range" min="0" max="255" id="l" step="1" value="255" name="l">
+                        <output for="l" id="l_out">255</output>
+                </fieldset>  
+                
+                {% for c in controllers %}
+                    <option value="{{ c.position }}">{{c.position}}</option>
+                {% endfor %}
+                <input type="submit">
         </form>
+        </br>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/rgb.js') }}"></script>
     </body>
 </html>

@@ -1,15 +1,22 @@
-from raspi.rgbinterface import RGBInterface
+from raspi.raspiutil import RaspiUtil
 from flask import Flask, render_template, request
 from jinja2 import Template
 import jinja2
 
-app = Flask(__name__)
+# flask setup
 
-#
+app = Flask(__name__, static_folder='./static')
+
+# jinja setup
 templateLoader = jinja2.FileSystemLoader(searchpath="/templates/")
 templateEnv = jinja2.Environment(loader=templateLoader)
 
-ri = RGBInterface()
+# rapsi setup
+
+raspiutil = RaspiUtil()
+RGBInterface = raspiutil.create_RGBInterface()
+
+# routes
 
 @app.route('/')
 def hello():
@@ -23,9 +30,9 @@ def rgb():
         g = request.form['g']
         b = request.form['b']
         l = request.form['l']
-        p = request.form['p']
+        # position = request.form['p']
 
-        ri.update_colors(r, g, b, l, p)
+        RGBInterface.send_values(0, r, g, b, l)
 
     return render_template('rgb.html')
 

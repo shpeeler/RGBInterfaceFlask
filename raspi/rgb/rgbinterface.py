@@ -1,5 +1,7 @@
 import time, os, serial
 from .state import State
+from ..util.util import Util
+from ..util.msgtype import MsgType
 
 class RGBInterface(object):
 
@@ -17,6 +19,8 @@ class RGBInterface(object):
             if ser.isOpen():
                 time.sleep(3)
                 ser.write(msg)
+            else:
+                Util.write("serial communication could not be established", MsgType.ERROR)
 
     def send_state(self, position, state):
         """ sends the state to the port saved in position """
@@ -28,6 +32,7 @@ class RGBInterface(object):
             msg = "O"
 
         if(msg == None):
+            Util.write("invalid state: {}".format(state) ,MsgType.ERROR)
             return
 
         enc_msg = msg.encode()
@@ -35,13 +40,14 @@ class RGBInterface(object):
         baudrate = self.config[str(position)]["baudrate"]
 
         with serial.Serial(addr, baudrate) as ser:
-            if ser.IsOpen():
+            if ser.isOpen():
                 time.sleep(3)
                 ser.write(enc_msg)
+            else:
+                Util.write("serial communication could not be established", MsgType.ERROR)
 
     def _convert_values_to_msg(self, r, g, b, l):
         """ converts the given values r, g, b, l to a message for serial writing """
-
 
         ret_r = self._convert_value_to_string(r, l)
         ret_g = self._convert_value_to_string(g, l)

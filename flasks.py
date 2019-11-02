@@ -14,7 +14,7 @@ templateEnv = jinja2.Environment(loader=templateLoader)
 # rapsi setup
 
 raspiutil = RaspiUtil()
-RGBInterface = raspiutil.create_RGBInterface()
+RGBInterface = raspiutil.get_rgbinterface()
 
 # routes
 

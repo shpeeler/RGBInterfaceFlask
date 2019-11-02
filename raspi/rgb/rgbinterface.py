@@ -1,4 +1,4 @@
-import time, os, serial
+import time, serial, schedule
 from .state import State
 from ..util.util import Util
 from ..util.msgtype import MsgType
@@ -45,6 +45,9 @@ class RGBInterface(object):
                 ser.write(enc_msg)
             else:
                 Util.write("serial communication could not be established", MsgType.ERROR)
+
+    def sched(self, position, time_on, time_off):
+        pass
 
     def _convert_values_to_msg(self, r, g, b, l):
         """ converts the given values r, g, b, l to a message for serial writing """

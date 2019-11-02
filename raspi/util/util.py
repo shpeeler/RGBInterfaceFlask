@@ -1,5 +1,5 @@
 import os, json, sys, datetime
-from msgtype import MsgType
+from .msgtype import MsgType
 
 class Util(object):
 

@@ -1,4 +1,4 @@
-import time, serial
+import time, subprocess
 from .state import State
 from ..util.util import Util
 from ..util.msgtype import MsgType
@@ -13,14 +13,10 @@ class RGBInterface(object):
         
         msg = self._convert_values_to_msg(r, g, b, l)
         addr = self.config[str(position)]["addr"]
-        baudrate = self.config[str(position)]["baudrate"]
 
-        with serial.Serial(addr, baudrate) as ser:
-            if ser.isOpen():
-                time.sleep(3)
-                ser.write(msg)
-            else:
-                Util.write("serial communication could not be established", MsgType.ERROR)
+        cmd = ["curl", "{}/RGB={}".format(addr, msg)]
+        print(cmd)
+        subprocess.call(cmd)
 
     def send_state(self, position, state):
         """ sends the state to the port saved in position """
@@ -35,16 +31,10 @@ class RGBInterface(object):
             Util.write("invalid state: {}".format(state) ,MsgType.ERROR)
             return
 
-        enc_msg = msg.encode()
         addr = self.config[str(position)]["addr"]
-        baudrate = self.config[str(position)]["baudrate"]
-
-        with serial.Serial(addr, baudrate) as ser:
-            if ser.isOpen():
-                time.sleep(3)
-                ser.write(enc_msg)
-            else:
-                Util.write("serial communication could not be established", MsgType.ERROR)
+        
+        cmd = 'curl {}/State={}'.format(addr, state)
+        subprocess.call(cmd)
 
     def _convert_values_to_msg(self, r, g, b, l):
         """ converts the given values r, g, b, l to a message for serial writing """
@@ -53,10 +43,9 @@ class RGBInterface(object):
         ret_g = self._convert_value_to_string(g, l)
         ret_b = self._convert_value_to_string(b, l)
 
-        result = '{}{}{}\n'.format(ret_r, ret_g, ret_b)
-        enc_result = result.encode()
+        result = '{}{}{}'.format(ret_r, ret_g, ret_b)
 
-        return enc_result
+        return result
 
     def _convert_value_to_string(self, color, brightness):
         """ converts the given color and brightness to its real value and returns it as a string """

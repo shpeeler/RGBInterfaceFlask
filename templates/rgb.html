@@ -28,10 +28,14 @@
                         <input type="range" min="0" max="255" id="l" step="1" value="255" name="l">
                         <output for="l" id="l_out">255</output>
                 </fieldset>  
+                <fieldset>
+                    <label>
+                        <input type="checkbox" class="box" name="pc" value="0">P</label>
+                        <input type="checkbox" class="box" name="bed" value="1">B</label>
+                        <input type="checkbox" class="box" name="living" value="2">L</label>
+                    </label>
+                </fieldset>
                 
-                {% for c in controllers %}
-                    <option value="{{ c.position }}">{{c.position}}</option>
-                {% endfor %}
                 <input type="submit">
         </form>
         </br>

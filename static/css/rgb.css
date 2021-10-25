@@ -18,6 +18,7 @@ label, output{
   color: #000;
   font-size: 1.1em;
 }
+
 label[for=r], output[for=r]{
   background-color: #f00;
 }
@@ -29,4 +30,9 @@ label[for=b], output[for=b]{
 }
 label[for=l], output[for=l]{
   background-color: darkgrey;
+}
+input.box{
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1em;
 }

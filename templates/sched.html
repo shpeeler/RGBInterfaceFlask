@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/sched.css') }}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+        <body>
+            <form action="http://192.168.0.171/sched" method="POST">
+                <fieldset>
+                    <input type="checkbox" class="action" name="led_on" value="0">LED-OFF</label>
+                    <input type="checkbox" class="action" name="led_off" value="1">LED-ON</label>
+                    <br>
+                    <input type="checkbox" class="place" name="pc" value="0">PC</label>
+                    <input type="checkbox" class="place" name="bed" value="1">BED</label>
+                    <input type="checkbox" class="place" name="living" value="2">LIV</label>
+                    <br>
+                    <input type="checkbox" class="day" name="mon" value="0">Monday</label>
+                    <input type="checkbox" class="day" name="tu" value="1">Tuesday</label>
+                    <input type="checkbox" class="day" name="wed" value="2">Wednesday</label>
+                    <input type="checkbox" class="day" name="th" value="3">Thursday</label>
+                    <input type="checkbox" class="day" name="fr" value="4">Friday</label>
+                    <input type="checkbox" class="day" name="sat" value="5">Saturday</label>
+                    <input type="checkbox" class="day" name="sun" value="6">Sunday</label>
+                    <br>
+
+                    <input  type="time" id="appt" name="task"
+                            min="00:00" max="23:59" required>
+                </fieldset>
+
+                <input type="submit">
+            </form>
+
+            <script type="text/javascript" src="{{ url_for('static', filename='js/sched.js') }}"></script>
+        </body>
+
+</html>

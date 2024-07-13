@@ -1,4 +1,4 @@
-import time, subprocess
+import time, subprocess, requests
 from .state import State
 from ..util.util import Util
 from ..util.msgtype import MsgType
@@ -14,9 +14,18 @@ class RGBInterface(object):
         msg = self._convert_values_to_msg(r, g, b, l)
         addr = self.config[str(position)]["addr"]
 
-        cmd = ["curl", "{}/RGB={}".format(addr, msg)]
-        print(cmd)
-        subprocess.call(cmd)
+        api_endpoint = "http://{}:80/rgb".format(addr).rstrip()
+
+        data = {
+            "color": msg
+        }
+
+        try:
+            response = requests.post(api_endpoint, json=data)
+        except requests.ConnectionError as error:
+            print("Failed to connect to the ESP8266. Address: '{}' Message: '{}' Error: {}".format(api_endpoint, msg, error))
+
+        print(response)
 
     def send_state(self, position, state):
         """ sends the state to the port saved in position """
